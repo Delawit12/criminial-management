@@ -65,20 +65,20 @@ export default function TheApp() {
         <Route path="/profile" exact element={<Profile />} />
         <Route path="/editprofile" exacts element={<EditProfile />} />
         <Route
+          path="viewall"
+          element={<Viewall setSelectedCriminal={setSelectedCriminal} />}
+        />
+        {/* <Route
           path="/addcriminal"
           exact
           element={<Addcriminal edit={false} />}
-        />
+        /> */}
         {/* <Route
           path="editcriminal"
           exact
           element={
             <Addcriminal edit={true} selectedCriminal={selectedCriminal} />
           }
-        /> */}
-        {/* <Route
-          path="viewall"
-          element={<Viewall setSelectedCriminal={setSelectedCriminal} />}
         /> */}
         {/* <Route path="singlecriminal" element={<ViewSinglecriminal />} /> */}
         {/* <Route path="search" element={<SearchBar />} /> */}

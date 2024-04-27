@@ -13,36 +13,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// FIR model
-model FIR {
-  FIR_ID                  Int           @id @default(autoincrement())
-  FIR_Number              String
-  fir_form_fill_Date      DateTime
-  District                String
-  PoliceStation           String
-  InformationReceivedDate DateTime
-  InformationReceivedTime DateTime
-  Written                 Boolean
-  Oral                    Boolean
-  Status                  String
-  Incidents               Incident[] // One FIR can have multiple incidents
-  Complainants            Complainant[] // One FIR can have multiple complainants
-  Suspects                Suspect[] // One FIR can have multiple suspects
-  Exhibits                Exhibit[] // One FIR can have multiple exhibits
-  CaseOfficers            CaseOfficer[] // One FIR can have multiple case officers
-}
-
 // User model
 model User {
-  user_id      Int            @id @default(autoincrement())
-  username     String
-  password     String
-  email        String         @unique
-  role_id      Int
-  Role         Role           @relation(fields: [role_id], references: [role_id])
-  CaseOfficers CaseOfficer[]
-  Notification Notification[]
-  Persons      Person[]
+  user_id   Int         @id @default(autoincrement())
+  username  String
+  password  String
+  email     String      @unique
+  role_id   Int
+  Role      Role        @relation(fields: [role_id], references: [role_id])
+  Persons   Person[]
+  Compliant Compliant[]
+  Suspect   Suspect[]
+  Criminal  Criminal[]
 }
 
 // Role model
@@ -51,119 +33,6 @@ model Role {
   role_name   String?
   permissions String?
   users       User[]
-}
-
-// Incident model
-model Incident {
-  Incident_ID          Int      @id @default(autoincrement())
-  FIR                  FIR      @relation(fields: [FIR_ID], references: [FIR_ID])
-  FIR_ID               Int
-  Date_of_incident     DateTime
-  Location_of_incident String
-  Time_of_incident     DateTime
-  Incident_type        String
-  Description          String
-  Investigation_status String
-}
-
-// Complainant model
-model Complainant {
-  Complainant_ID            Int      @id @default(autoincrement())
-  FIR                       FIR      @relation(fields: [FIR_ID], references: [FIR_ID])
-  FIR_ID                    Int
-  First_Name                String
-  FatherName                String
-  MotherName                String
-  DateOfBirth               DateTime
-  Nationality               String
-  Religion                  String
-  Occupation                String
-  NationalId                String
-  Address                   String
-  PhoneNo                   String
-  Relation_with_the_suspect String
-}
-
-// Suspect model
-model Suspect {
-  Suspect_ID            Int       @id @default(autoincrement())
-  FIR                   FIR       @relation(fields: [FIR_ID], references: [FIR_ID])
-  FIR_ID                Int
-  Name                  String
-  Age                   Int
-  Gender                String
-  Address               String
-  Height                Float
-  PhoneNo               String
-  Nationality           String
-  Religion              String
-  Status                String
-  Release_date          DateTime
-  Release_justification String
-  Persons               Person[] // One suspect can have multiple associated persons
-  Exhibit               Exhibit[]
-  Criminal              Criminal? @relation(fields: [criminal_id], references: [Criminal_ID])
-  criminal_id           Int?
-}
-
-// Suspect model
-// model Suspect {
-//   Suspect_ID      Int       @id @default(autoincrement())
-//   Name            String
-//   Age             Int
-//   Gender          String
-//   Address         String
-//   Height          Float
-//   PhoneNo         String
-//   Nationality     String
-//   Religion        String
-//   Status          String
-//   Release_date    DateTime
-//   Release_justification String?
-
-// }
-
-// Criminal model
-model Criminal {
-  Criminal_ID     Int          @id @default(autoincrement())
-  Name            String
-  Age             Int
-  Gender          String
-  Address         String
-  Height          Float
-  PhoneNo         String
-  Nationality     String
-  Religion        String
-  Status          String
-  Arrest_date     DateTime
-  CaseOfficer     CaseOfficer? @relation(fields: [case_officer_id], references: [CaseOfficer_ID])
-  case_officer_id Int?
-  Suspect         Suspect[]
-}
-
-// CaseOfficer model
-model CaseOfficer {
-  CaseOfficer_ID Int        @id @default(autoincrement())
-  FIR            FIR        @relation(fields: [FIR_ID], references: [FIR_ID])
-  FIR_ID         Int
-  Officer_Name   String
-  Rank           String
-  Assigned_Date  DateTime
-  User           User?      @relation(fields: [userUser_id], references: [user_id])
-  userUser_id    Int?
-  Criminal       Criminal[]
-}
-
-// Exhibit model
-model Exhibit {
-  Exhibit_ID        Int      @id @default(autoincrement())
-  FIR               FIR      @relation(fields: [FIR_ID], references: [FIR_ID])
-  FIR_ID            Int
-  Description       String
-  Attribute_type    String
-  Value             String
-  Suspect           Suspect? @relation(fields: [suspectSuspect_ID], references: [Suspect_ID]) // An exhibit may be associated with a suspect
-  suspectSuspect_ID Int?
 }
 
 // Person model
@@ -183,16 +52,176 @@ model Person {
   user          User      @relation(fields: [user_id], references: [user_id])
 }
 
-// Notification model
-model Notification {
-  notification_id      Int      @id @default(autoincrement())
-  user_id              Int
-  notification_type    String
-  notification_message String
-  creation_date        DateTime
-  is_read              Boolean
-  User                 User     @relation(fields: [user_id], references: [user_id])
+// Compliant model
+model Compliant {
+  compliant_id              Int        @id @default(autoincrement())
+  compliant_description     String
+  date_received             DateTime
+  status                    String
+  compliant_first_name      String
+  compliant_father_name     String
+  compliant_mother_name     String
+  compliant_date_of_birth   DateTime
+  compliant_nationality     String
+  compliant_religion        String
+  compliant_occupation      String
+  compliant_national_id     String
+  compliant_address         String
+  compliant_phone_number    String
+  relationship_with_suspect String
+  added_by                  Int // Foreign key referencing User table
+  User                      User       @relation(fields: [added_by], references: [user_id])
+  Suspect                   Suspect[]
+  Criminal                  Criminal[]
 }
+
+// Suspect model
+model Suspect {
+  suspect_id           Int        @id @default(autoincrement())
+  suspect_name         String
+  suspect_age          Int
+  suspect_gender       String
+  suspect_height       String
+  suspect_phone_number String
+  suspect_nationality  String
+  suspect_address      String
+  suspect_religion     String
+  suspect_description  String
+  suspect_status       String
+  suspected_reason     String
+  compliant_id         Int? // Nullable foreign key referencing Compliant table
+  added_by             Int // Foreign key referencing User table
+  User                 User       @relation(fields: [added_by], references: [user_id])
+  Compliant            Compliant? @relation(fields: [compliant_id], references: [compliant_id])
+  Person               Person?    @relation(fields: [personPerson_id], references: [person_id])
+  personPerson_id      Int?
+  Criminal             Criminal[]
+}
+
+model Criminal {
+  criminal_id             Int       @id @default(autoincrement())
+  criminal_name           String // name
+  criminal_age            Int // age
+  criminal_gender         String // gender
+  criminal_height         String // height
+  criminal_phone_number   String // phone_number
+  criminal_nationality    String // nationality
+  criminal_address        String // address
+  criminal_religion       String // religion
+  criminal_description    String // description
+  crime_type              String
+  case_status             String
+  decided_prison_term     String
+  compliant_id            Int // Foreign key referencing Compliant table
+  derived_from_suspect_id Int // Foreign key referencing Suspect table
+  added_by                Int // Foreign key referencing User table
+  User                    User      @relation(fields: [added_by], references: [user_id])
+  Compliant               Compliant @relation(fields: [compliant_id], references: [compliant_id])
+  Suspect                 Suspect   @relation(fields: [derived_from_suspect_id], references: [suspect_id])
+}
+
+// FIR model
+// model FIR {
+//   FIR_ID                  Int           @id @default(autoincrement())
+//   FIR_Number              String
+//   fir_form_fill_Date      DateTime
+//   District                String
+//   PoliceStation           String
+//   InformationReceivedDate DateTime
+//   InformationReceivedTime DateTime
+//   Written                 Boolean
+//   Oral                    Boolean
+//   Status                  String
+//   Incidents               Incident[] // One FIR can have multiple incidents
+//   Complainants            Complainant[] // One FIR can have multiple complainants
+//   Suspects                Suspect[] // One FIR can have multiple suspects
+//   Exhibits                Exhibit[] // One FIR can have multiple exhibits
+//   CaseOfficers            CaseOfficer[] // One FIR can have multiple case officers
+// }
+
+// Incident model
+// model Incident {
+//   Incident_ID          Int      @id @default(autoincrement())
+//   FIR                  FIR      @relation(fields: [FIR_ID], references: [FIR_ID])
+//   FIR_ID               Int
+//   Date_of_incident     DateTime
+//   Location_of_incident String
+//   Time_of_incident     DateTime
+//   Incident_type        String
+//   Description          String
+//   Investigation_status String
+// }
+
+// Suspect model
+// model Suspect {
+//   Suspect_ID      Int       @id @default(autoincrement())
+//   Name            String
+//   Age             Int
+//   Gender          String
+//   Address         String
+//   Height          Float
+//   PhoneNo         String
+//   Nationality     String
+//   Religion        String
+//   Status          String
+//   Release_date    DateTime
+//   Release_justification String?
+
+// }
+
+// Criminal model
+// model Criminal {
+//   Criminal_ID     Int          @id @default(autoincrement())
+//   Name            String
+//   Age             Int
+//   Gender          String
+//   Address         String
+//   Height          Float
+//   PhoneNo         String
+//   Nationality     String
+//   Religion        String
+//   Status          String
+//   Arrest_date     DateTime
+//   CaseOfficer     CaseOfficer? @relation(fields: [case_officer_id], references: [CaseOfficer_ID])
+//   case_officer_id Int?
+//   Suspect         Suspect[]
+// }// Criminal model
+
+// CaseOfficer model
+// model CaseOfficer {
+//   CaseOfficer_ID Int        @id @default(autoincrement())
+//   FIR            FIR        @relation(fields: [FIR_ID], references: [FIR_ID])
+//   FIR_ID         Int
+//   Officer_Name   String
+//   Rank           String
+//   Assigned_Date  DateTime
+//   User           User?      @relation(fields: [userUser_id], references: [user_id])
+//   userUser_id    Int?
+//   Criminal       Criminal[]
+// }
+
+// Exhibit model
+// model Exhibit {
+//   Exhibit_ID        Int      @id @default(autoincrement())
+//   FIR               FIR      @relation(fields: [FIR_ID], references: [FIR_ID])
+//   FIR_ID            Int
+//   Description       String
+//   Attribute_type    String
+//   Value             String
+//   Suspect           Suspect? @relation(fields: [suspectSuspect_ID], references: [Suspect_ID]) // An exhibit may be associated with a suspect
+//   suspectSuspect_ID Int?
+// }
+
+// Notification model
+// model Notification {
+//   notification_id      Int      @id @default(autoincrement())
+//   user_id              Int
+//   notification_type    String
+//   notification_message String
+//   creation_date        DateTime
+//   is_read              Boolean
+//   User                 User     @relation(fields: [user_id], references: [user_id])
+// }
 
 // =------------------------------------------
 

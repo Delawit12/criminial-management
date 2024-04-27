@@ -5,7 +5,15 @@ const criminalController = {
   getAllCriminals: async (req, res) => {
     try {
       const criminals = await prisma.criminal.findMany();
-      res.status(200).json({ criminals });
+      console.log(criminals);
+
+      // Convert the array of criminals into an object with keys as Criminal_ID
+      const criminalsObject = {};
+      criminals.forEach((criminal) => {
+        criminalsObject[criminal.Criminal_ID] = criminal;
+      });
+
+      res.status(200).json({ criminalsObject });
     } catch (error) {
       console.error("Error fetching all criminals:", error);
       res.status(500).json({ message: "Internal server error" });

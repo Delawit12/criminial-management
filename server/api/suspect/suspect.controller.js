@@ -18,34 +18,18 @@ const suspectController = {
         },
       });
       console.log("updatedSuspect", updatedSuspect);
+
       // Check if the status changed to "arrested"
       if (status === "arrested") {
-        // // Extract FIR_ID from the updated suspect
-        // const { FIR_ID } = updatedSuspect.FIR_ID;
-        // console.log("fit_id",FIR);
-        // // Find the corresponding CaseOfficer ID using FIR_ID
-        // const caseOfficer = await prisma.caseOfficer.findUnique({
-        //   where: { FIR_ID: FIR_ID },
-        // });
-
-        // if (!caseOfficer) {
-        //   throw new Error("Case officer not found for the FIR");
-        // }
-        // Extract relevant information from the suspect
-        const {
-          Name,
-          Age,
-          Gender,
-          Address,
-          Height,
-          PhoneNo,
-          Nationality,
-          Religion,
-        } = updatedSuspect;
-
-        // Create a new entry in the criminal table
-        const newCriminal = await prisma.criminal.create({
-          data: {
+        // Check if the suspect already has a linked criminal record
+        if (updatedSuspect.criminal_id) {
+          res.status(200).json({
+            message: "Suspect already has a linked criminal record",
+            suspect: updatedSuspect,
+          });
+        } else {
+          // Extract relevant information from the suspect
+          const {
             Name,
             Age,
             Gender,
@@ -54,23 +38,37 @@ const suspectController = {
             PhoneNo,
             Nationality,
             Religion,
-            Status: "arrested",
-            Arrest_date: new Date(),
-            // CaseOfficer: {
-            //   connect: { CaseOfficer_ID: caseOfficer.CaseOfficer_ID },
-            // },
-          },
-        });
-        const updatedSuspectWithCriminal = await prisma.suspect.update({
-          where: { Suspect_ID: parseInt(id) },
-          data: { criminal_id: newCriminal.Criminal_ID },
-        });
-        res.status(200).json({
-          message:
-            "Suspect updated successfully, data entered into the criminal table",
-          suspect: updatedSuspectWithCriminal,
-          newCriminal: newCriminal,
-        });
+          } = updatedSuspect;
+
+          // Create a new entry in the criminal table
+          const newCriminal = await prisma.criminal.create({
+            data: {
+              Name,
+              Age,
+              Gender,
+              Address,
+              Height,
+              PhoneNo,
+              Nationality,
+              Religion,
+              Status: "arrested",
+              Arrest_date: new Date(),
+            },
+          });
+
+          // Update the suspect to link it to the new criminal record
+          const updatedSuspectWithCriminal = await prisma.suspect.update({
+            where: { Suspect_ID: parseInt(id) },
+            data: { criminal_id: newCriminal.Criminal_ID },
+          });
+
+          res.status(200).json({
+            message:
+              "Suspect updated successfully, data entered into the criminal table",
+            suspect: updatedSuspectWithCriminal,
+            newCriminal: newCriminal,
+          });
+        }
       } else {
         // If the status is not "arrested", respond with only the updated suspect data
         res.status(200).json({

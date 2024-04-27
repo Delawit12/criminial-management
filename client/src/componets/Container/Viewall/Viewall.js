@@ -10,6 +10,7 @@ export default function Viewall(props) {
   const [Error, setError] = useState(false);
 
   const CriminalTableRow = (props) => {
+    console.log("props", props);
     return (
       <tr>
         <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
@@ -39,7 +40,8 @@ export default function Viewall(props) {
           <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
             <span
               aria-hidden
-              className="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
+              className="absolute inset-0 bg-green-200 opacity-50 rounded-full"
+            ></span>
             <span className="relative text-xs">active</span>
           </span>
         </td>
@@ -51,7 +53,8 @@ export default function Viewall(props) {
             className="px-5 py-2 border-blue-500 border text-blue-500 rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none"
             onClick={(e) => {
               props.setSelectedCriminal(items[props.index]);
-            }}>
+            }}
+          >
             <Link to="/editcriminal">edit</Link>
           </button>
         </td>
@@ -63,7 +66,7 @@ export default function Viewall(props) {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "http://localhost:8080/officer/criminals",
+          " http://localhost:8888/api/criminal/getAllCriminals",
           {
             method: "GET",
             headers: {
@@ -132,7 +135,8 @@ export default function Viewall(props) {
                         <div className="p-2 w-[100%]">
                           <div
                             class="p-4 w-[100%] mb-4  text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-700 dark:text-red-400"
-                            role="alert">
+                            role="alert"
+                          >
                             <span class="font-medium">Danger alert!</span>{" "}
                             Error: {Error.message}
                           </div>
@@ -195,7 +199,8 @@ export default function Viewall(props) {
                         <div>
                           <div
                             class="p-4 mb-4 text-sm text-yellow-800 rounded-lg bg-yellow-50 dark:bg-gray-700 dark:text-yellow-300"
-                            role="alert">
+                            role="alert"
+                          >
                             <span class="font-medium">!</span> Loading...
                           </div>
                         </div>
@@ -266,7 +271,7 @@ export default function Viewall(props) {
                       </tbody>
                     </table>
                     <div className="sm:flex-1 sm:flex sm:items-center sm:justify-between mt-4 work-sans">
-                      <div className='flex space-x-4'>
+                      <div className="flex space-x-4">
                         <p className="text-sm leading-5 text-blue-700 ">
                           Showing
                           <span className="font-medium p-1">1</span>
