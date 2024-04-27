@@ -1,0 +1,180 @@
+.contents-x-login{
+    margin: 2rem auto;
+    height: 440px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    
+    /* background-color: #000; */
+}
+.LoginContainers{
+    overflow: hidden;
+    font-size: 10px;
+  }
+
+.LoginContainers{
+    /* background-color: aqua; */
+    width: 90%;
+    
+    /* height: calc(100vh - 6rem); */
+    height: inherit;
+    /* border: 1px solid rgb(205, 204, 204); */
+    border-radius: 5px;
+
+
+}
+
+.fluid-container{
+    width: 100%;
+    height: 100%;
+    /* display: flex; */
+    flex-direction: row;
+    /* background-color: rgb(18, 19, 18); */
+    border-radius: inherit
+
+}
+
+.graph__container{
+    width: 50%;
+    /* height: 100%;
+    background-color: red; */
+    
+}
+
+.graph{
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: inherit;
+    border-bottom-left-radius: inherit
+}
+
+.sign__in_container{
+    width: 50%;
+    /* background-color: blue; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    /* padding: 5rem 0; */
+    /* padding-left: 2rem; */
+    padding: 2rem;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    border-radius: inherit;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    /* background-color: #54b4d3; */
+
+
+
+}
+
+.sing__elements{
+    width: 100%;
+    background-color: #f8f8f8;
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    row-gap: 1rem;
+}
+
+.login-h2{
+    font-weight: 400;
+    font-size: 1.7rem;
+    margin-bottom: 10px;
+
+}
+
+.form__input{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.inputs{
+    width: 100% !important;
+    margin-bottom: 2.4rem;
+   
+}
+
+.inputs>input{
+    /* display: none; */
+    outline: none;
+    cursor: text;
+    
+}
+
+.inputs input, .sign-btn, .error__credential{
+    width: 100%;
+    border: 1px solid rgb(188, 184, 184);
+    background-color: #fff;
+    padding: 5px 12px;
+    padding: .625rem 1rem;
+    height: 3rem;
+    font-size: 2rem;
+    font-size: 20px;
+    font-weight: 400;
+    cursor: text;
+    border-radius: 5px;
+}
+
+.inputs>input:focus{
+    border-color: #54b4d3
+}
+
+.sign-btn, .error__credential{
+    background-color: #0800f2;
+    cursor: pointer;
+    color: #fff;
+    border: none;
+    font-weight: bold;
+}
+
+.sign-btn:hover{
+    background-color: #3aa2c4e0;
+
+
+}
+
+.error__credential{
+    background-color: rgb(176, 18, 18);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    display: flex;
+    gap: 5px;
+    font-size: 15px;
+}
+
+input::placeholder{
+    color: #5b5656;
+}
+
+.pswd__area{
+    position: relative;
+}
+
+.show__pswd{
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    z-index: 10;
+    font-size: 1.5rem;
+    padding: 1px;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+    
+}
+.show__pswd:hover{
+    background-color: #b7c1c3;
+    border-radius: 50%;
+}
+

@@ -1,0 +1,26 @@
+// User Table:
+
+// Fields:
+// user_id (Primary Key)
+// username
+// password
+// email
+// role_id (Foreign Key, references Role Table)
+// profile_id (Foreign Key, references Profile Table)
+// Profile Table:
+
+// Fields:
+// profile_id (Primary Key)
+// full_name
+// date_of_birth
+// gender
+// address
+// phone_number
+// department_id (Foreign Key, references Department Table)
+// badge_number (optional)
+// rank_id (Foreign Key, references Rank Table)
+
+
+// Role Table:
+// - role_id (Primary Key)
+// - role_name

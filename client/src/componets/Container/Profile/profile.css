@@ -1,0 +1,127 @@
+.container-xP{
+    width: 100%;
+    margin: 80px;
+}
+
+.container__profile{
+
+background-color: #f5f5f6;
+        box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+    min-width: 900px;
+    min-height:300px;
+    max-width: 900px;
+    margin-top: 3rem auto 10px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    color: #f9f9f9;
+    border-radius: 10px;
+    /* gap: 1rem; */
+    padding-bottom: 2rem;
+    /* max-height: 400px; */
+    color: #0d1117;
+
+}
+
+.profil_cont{
+    height: 320px;
+    padding: 2.5rem;
+}
+
+.admin_photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.container__profile .admin_photo{
+    top: -50px;
+    left: -10;
+    z-index: 10;
+    /* width: fit-content; */
+
+}
+
+
+.admin_photo img{
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+
+}
+
+.adminName{
+margin-top: 70px;
+font-size: 2rem;
+}
+
+.adminRole{
+    font-size: 1.5rem;
+    color: rgba(0, 0, 0, 0.69);
+}
+
+.basicInfo{
+    margin-top: 1rem;;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    font-size: 1.5rem;
+}
+
+.info{
+    display: flex;
+    gap: 10px;
+}
+
+.horizontalLine{
+    width: 100%;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.207);
+    background-color: rgba(150, 145, 145, 0.69);
+    box-shadow: 0px 1px 0px 1px rgba(0, 0, 0, 0.2);
+
+    margin: 2rem 0 1rem;
+}
+
+.otherInfos{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-around;
+    /* gap: 3rem; */
+    width: 80%;
+    font-size: 1.4rem;
+    /* margin-bottom: 2rem; */
+    /* justify-content: space-around; */
+    /* align-items: sp; */
+}
+
+.otherInfos .label{
+    margin: 10px;
+    color: rgba(255, 255, 255, 0.69);
+    color: rgba(0, 0, 0, 0.69);
+
+}
+
+.editProfile{
+    position: absolute;
+    top: 4rem;
+    right: 7rem;
+    /* background-color: green; */
+    font-size: 16px;
+}
+
+.editProfile button{
+    background-color: blue;
+    padding: 8px 10px;
+    border: none;
+    color: #fff;
+    border-radius: 10px;
+    font-size: inherit;
+    width: 100px;
+
+}

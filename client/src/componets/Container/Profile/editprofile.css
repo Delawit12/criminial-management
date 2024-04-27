@@ -1,0 +1,114 @@
+/* .editContainer{
+    background-color: #0d1117;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+    min-width: 900px;
+    min-height: 350px;
+    max-width: 900px;
+    margin: 10rem auto 10px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    color: #f9f9f9;
+    border-radius: 10px;
+} */
+.container-xP-edit{
+    width: 100%;
+    /* margin: 80px; */
+}
+
+
+.container__profile{
+    /* background-color: #0d1117; */
+        /* background-color: #0d1117; */
+        background-color: #ffffff;
+        box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+    min-width: 900px;
+    min-height: 450px;
+    max-width: 900px;
+    /* margin: 10rem auto 10px; */
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    color: #f9f9f9;
+    border-radius: 10px;
+    gap: 1rem;
+    padding-bottom: 2rem;
+    max-height: 400px;
+    color: #0d1117;
+
+}
+
+
+.editContainer .admin_photo{
+    top: 5rem;
+}
+
+.edit_inputForms{
+    margin-top: 5rem;
+    overflow-y:scroll;
+
+   
+    /* background-color: red; */
+}
+
+.edit_inputs{
+    margin: 1rem;
+}
+
+.inputs{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 600px;
+    /* background-color: rgb(27, 132, 224); */
+    font-size: 1.6rem;
+    
+}
+
+.inputs input{
+    width: 100%;
+    height: 38px;
+    border: 1px solid #0d1117;
+    margin-top: 2px;
+    padding: 8px 12px;
+}
+
+
+
+.edit_inputs>input{
+    /* display: none; */
+    outline: none;
+    cursor: text;
+    
+}
+
+.edit_inputs input{
+    width: 100%;
+    border: 1px solid rgb(188, 184, 184);
+    background-color: #fff;
+    padding: 5px 12px;
+    padding: .625rem 1rem;
+    height: 3rem;
+    font-size: 2rem;
+    font-size: 20px;
+    font-weight: 400;
+    cursor: text;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+.edit_inputs>input:focus{
+    border-color: #54b4d3
+}
+
+.edit_inputs  label{
+    margin: 5px;
+    font-size: 20px;
+    color: rgb(0, 0, 0);
+}
+
+.edit_inputs {
+    gap: 1rem;
+}
