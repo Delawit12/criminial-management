@@ -4,6 +4,8 @@ import compliantSchema from "./compliant.schema.js";
 const complaintController = {
   addComplaint: async (req, res) => {
     try {
+      const userId = req.user.id; // Assuming user_id is present in the token payload
+
       const {
         description,
         dateReceived,
@@ -19,8 +21,40 @@ const complaintController = {
         address,
         phoneNumber,
         relationshipWithSuspect,
-        addedBy,
       } = req.body;
+
+      // Check if any required field is missing
+      if (
+        !description ||
+        !dateReceived ||
+        !status ||
+        !firstName ||
+        !dateOfBirth ||
+        !nationality ||
+        !religion ||
+        !nationalID ||
+        !address ||
+        !phoneNumber ||
+        !relationshipWithSuspect
+      ) {
+        return res
+          .status(400)
+          .json({
+            error: "All fields are required.",
+            message: "All fields are required.",
+          });
+      }
+
+      // Get the user ID from the token and find the user in the database
+      const user = await prisma.user.findUnique({
+        where: {
+          user_id: userId,
+        },
+      });
+
+      if (!user) {
+        return res.status(404).json({ error: "User not found." });
+      }
 
       // Insert new complaint into the database
       const newComplaint = await prisma.compliant.create({
@@ -39,16 +73,22 @@ const complaintController = {
           compliant_address: address,
           compliant_phone_number: phoneNumber,
           relationship_with_suspect: relationshipWithSuspect,
-          added_by: addedBy,
+          added_by: userId, // Use the user ID obtained from the token
         },
       });
 
-      res.json(newComplaint);
+      res.status(200).json({
+        message: "Complaint add successfully",
+        complaint: newComplaint,
+      });
     } catch (error) {
       console.error("Error adding complaint:", error);
       res
         .status(500)
-        .json({ error: "An error occurred while adding complaint." });
+        .json({
+          error: "An error occurred while adding complaint.",
+          message: "Internal server error",
+        });
     }
   },
 };

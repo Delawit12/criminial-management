@@ -91,7 +91,7 @@ export default function Viewall(props) {
     return (
       <div className="sectionContainer">
         <div className="section">
-          <Sidebar />
+          {/* <Sidebar /> */}
           <div className="contents-x">
             <div className="con w-full">
               <div className="con">
@@ -155,7 +155,7 @@ export default function Viewall(props) {
     return (
       <div className="sectionContainer">
         <div className="section">
-          <Sidebar />
+          {/* <Sidebar /> */}
           <div className="contents-x">
             <div className="con w-full">
               <div className="con">
@@ -220,7 +220,7 @@ export default function Viewall(props) {
       <div className="sectionContainer">
         {" "}
         <div className="section">
-          <Sidebar />
+          {/* <Sidebar /> */}
           <div className="contents-x">
             <div className="con w-full">
               <div className="con">

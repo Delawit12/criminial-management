@@ -77,25 +77,27 @@ model Compliant {
 
 // Suspect model
 model Suspect {
-  suspect_id           Int        @id @default(autoincrement())
-  suspect_name         String
-  suspect_age          Int
-  suspect_gender       String
-  suspect_height       String
-  suspect_phone_number String
-  suspect_nationality  String
-  suspect_address      String
-  suspect_religion     String
-  suspect_description  String
-  suspect_status       String
-  suspected_reason     String
-  compliant_id         Int? // Nullable foreign key referencing Compliant table
-  added_by             Int // Foreign key referencing User table
-  User                 User       @relation(fields: [added_by], references: [user_id])
-  Compliant            Compliant? @relation(fields: [compliant_id], references: [compliant_id])
-  Person               Person?    @relation(fields: [personPerson_id], references: [person_id])
-  personPerson_id      Int?
-  Criminal             Criminal[]
+  suspect_id            Int        @id @default(autoincrement())
+  suspect_name          String?
+  suspect_age           Int?
+  suspect_gender        String?
+  suspect_height        String?
+  suspect_phone_number  String?
+  suspect_nationality   String?
+  suspect_address       String?
+  suspect_religion      String?
+  suspect_description   String
+  suspect_status        String
+  suspected_reason      String
+  releasedJustification String?
+  arrested_date_time    DateTime? // New field for arrested date and time
+  compliant_id          Int? // Nullable foreign key referencing Compliant table
+  added_by              Int // Foreign key referencing User table
+  User                  User       @relation(fields: [added_by], references: [user_id])
+  Compliant             Compliant? @relation(fields: [compliant_id], references: [compliant_id])
+  Person                Person?    @relation(fields: [personPerson_id], references: [person_id])
+  personPerson_id       Int?
+  Criminal              Criminal[]
 }
 
 model Criminal {

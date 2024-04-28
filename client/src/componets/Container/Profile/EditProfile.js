@@ -163,7 +163,7 @@ function EditProfile() {
   return (
     <div className="sectionContainer ">
       <div className="section w-72">
-        <Sidebar />
+        {/* <Sidebar /> */}
         <div className="container__profile_addCr m-10">
           <form className="edit_inputForms">
             <h1 className="section__page_title">

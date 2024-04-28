@@ -20,12 +20,17 @@ import ViewAdmin from "./Container/viewAdmin/Admintable/ViewAdmin";
 import Profile from "./Container/Profile/Profile";
 import EditProfile from "./Container/Profile/EditProfile";
 import Addcriminal from "./Container/Add/Addcriminal/Addcriminal";
-// import AddFir from "./Container/Add/Addfir/AddFir.js";
-// import ViewSinglecriminal from "./Container/Viewall/ViewSinglecriminal";
+import AddCompliant from "./Container/Add/Addcompliant/AddCompliant";
+import AddSuspect from "./Container/Add/Addsuspect/AddSuspect";
+import ViewSuspect from "./Container/Viewall/ViewSuspect";
+import ViewSinglecriminal from "./Container/Viewall/ViewSinglecriminal";
+import ViewSinglesuspect from "./Container/Viewall/ViewSinglecriminal";
+import Sidebar from "./SIdebar/Sidebar";
 
 export default function TheApp() {
   const [auth, setAuth] = useState(false);
   const [selectedCriminal, setSelectedCriminal] = useState({});
+  const [selectedSuspect, setSelectedSuspect] = useState({});
 
   React.useEffect(() => {
     if (localStorage.getItem("auth")) setAuth((prev) => true);
@@ -34,6 +39,7 @@ export default function TheApp() {
   return (
     <Router>
       <Navbar />
+      {/* <Sidebar /> */}
       <Routes>
         {" "}
         <Route path="/login" exact element={<Login />} />
@@ -59,13 +65,44 @@ export default function TheApp() {
           }
         />
         <Route path="/viewAdmin" exact element={<ViewAdmin />} />
-        {/* <Route path="/viewFir" exact element={<AddFir />} /> */}
         <Route path="/getusers" exact element={<AddAdmin />} />
         <Route path="/" element={<Login />} />
         <Route path="/profile" exact element={<Profile />} />
         <Route path="/editprofile" exacts element={<EditProfile />} />
         <Route
-          path="viewall"
+          path="/addcriminal"
+          element={
+            <Protected auth={auth}>
+              <Addcriminal edit={false} />
+            </Protected>
+          }
+        />
+        <Route
+          path="/addcompliant"
+          element={
+            <Protected auth={auth}>
+              <AddCompliant />
+            </Protected>
+          }
+        />
+        <Route
+          path="/addsuspect"
+          element={
+            <Protected auth={auth}>
+              <AddSuspect />
+            </Protected>
+          }
+        />
+        <Route
+          path="/viewsuspect"
+          element={
+            <Protected auth={auth}>
+              <ViewSuspect setSelectedSuspect={setSelectedSuspect} />
+            </Protected>
+          }
+        />
+        <Route
+          path="/viewall"
           element={<Viewall setSelectedCriminal={setSelectedCriminal} />}
         />
         {/* <Route
@@ -80,7 +117,8 @@ export default function TheApp() {
             <Addcriminal edit={true} selectedCriminal={selectedCriminal} />
           }
         /> */}
-        {/* <Route path="singlecriminal" element={<ViewSinglecriminal />} /> */}
+        <Route path="/singlecriminal" element={<ViewSinglecriminal />} />
+        <Route path="/singleSuspect" element={<ViewSinglesuspect />} />
         {/* <Route path="search" element={<SearchBar />} /> */}
         {/* <Route path="addAdmin" element={<AddAdmin />} /> */}
         {/* <Route path="addcriminal" element={<Addcriminal />} /> */}

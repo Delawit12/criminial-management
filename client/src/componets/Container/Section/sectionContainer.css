@@ -2,23 +2,29 @@
 .sectionContainer{
     position: relative;
     width: 100%;
-    height: inherit;
+    /* height: inherit; */
     display: flex;
     flex-direction: column;
+    justify-content: center;
     /* background-color: red; */
     justify-content: flex-start;
     align-items: center;
+    height: 100vh;
 }
 
+  
+ 
+  
 .section{
-    width: calc(100%);
-    height: inherit;
+    width: 100%; /* Adjust the width of the section */
+  max-width: 2000px; /* Limit the maximum width */
+  margin: 0 auto; /* Center the section horizontally */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
     /* background-color: green; */
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
     z-index: 0;
-    
+    /* border: 20px solid blue ; */
 }
 
 .contents-X{
@@ -29,20 +35,24 @@
 
 
 .container-xP-edit-a{
-    width: 100%;
-    margin: 20px;
-    /* margin-top: 50px; */
+    width: 90%;
+    /* border: 10px solid rgb(44, 171, 76) ; */
+    max-height: 100%;
+    /* margin-bottom: 20px; */
+    overflow-y: auto;
 }
 
 .container__profile_addCr{
-    /* background-color: #0d1117; */
         background-color: #f5f5f6;
         /* background-color: #ffffff; */
         /* box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2); */
         box-shadow: 2px 2px 5px 2px rgb(45 10 10 / 20%);
-    min-width: 900px;
-    min-height: 450px;
-    max-width: 900px;
+        /* border: 5px solid rgb(77, 97, 231) ; */
+    max-width: 70%;
+    max-height:65%;
+    margin: 20px auto 0;
+    /* min-height: 400px; */
+    /* max-width: 1700px; */
     /* margin: 10rem auto 10px; */
     position: relative;
     display: flex;
@@ -50,12 +60,32 @@
     flex-direction: column;
     color: #f9f9f9;
     border-radius: 10px;
-    gap: 1rem;
+    gap: 20px;
     padding-bottom: 2rem;
-    max-height: 400px;
+    /* max-height: 400px; */
     color: #0d1117;
+    
 
 }
+/* Media Query for Responsive Layout */
+@media screen and (max-width: 768px) {
+    .edit_inputs {
+      flex: 1 1 calc(50% - 1rem);
+    }
+    
+    .container__profile_addCr {
+      max-width: 90%; /* Adjust the max-width as needed */
+      max-height: 80vh; /* Adjust the max-height as needed */
+      overflow-y: auto; /* Enable vertical scrolling if needed */
+    }
+  }
+.form-row {
+    display: flex;
+    /* flex-direction: row; */
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
 
 
 .editContainer .admin_photo{
@@ -68,9 +98,18 @@
     /* background-color: black; */
     text-align: center;
     }
+    .edit_inputForms{
+        padding:0 20px;
+        overflow-y:scroll;
+        overflow-x: hidden;
+        scrollbar-width: none;
+    
+       
+        /* background-color: red; */
+    }
 
-.container__profile_addCr .edit_inputForms{
-    margin-top: 1.5rem;
+.container__profile_addCr{
+    /* margin-top: 1.5rem; */
     overflow-y:scroll;
     overflow-x: hidden;
     scrollbar-width: none;
@@ -81,8 +120,18 @@
 
 .edit_inputs{
     margin: 1rem;
+    flex: 1 1 calc(33.33% - 3rem);
 }
 
+.edit_inputs select {
+    width: 100%;
+    height: 38px;
+    border: 1px solid #96999d;
+    border-radius: 5px;
+    margin-top: 15px;
+    padding: 4px 15px;
+    font-size: 16px;
+  }
 .inputs{
     display: flex;
     flex-direction: column;
@@ -102,7 +151,7 @@
     padding: 8px 12px;
 }
 
-
+  
 
 .edit_inputs>input{
     /* display: none; */
@@ -129,7 +178,10 @@
 .edit_inputs>input:focus{
     border-color: #54b4d3
 }
-
+.sign-btn {
+    margin: 0 auto;
+    width: 50%; /* Make the button full width */
+  }
 .edit_inputs  label{
     margin: 5px;
     font-size: 20px;
@@ -142,4 +194,79 @@
 
 .edit_inputs .show__pswd{
     top: 3rem;
+}
+.edit_inputs input[type="datetime-local"] {
+    width: 80%;
+    height: 40px;
+    border: 1px solid #96999d;
+    margin-top: 15px;
+    padding: 8px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    background-color: #fff;
+  }
+  
+  .edit_inputs input[type="datetime-local"]:focus {
+    border-color: #54b4d3;
+  }
+  .edit_inputs textarea {
+    width: 100%;
+    height: 70px; /* Adjust height as needed */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical; /* Allow vertical resizing */
+    margin-top: 5px;
+    font-size: 16px; /* Adjust font size */
+  }
+  
+  .edit_inputs textarea:focus {
+    border-color: #02499a;
+    outline: none; /* Remove default outline */
+  }
+  
+  .edit_inputs textarea::placeholder {
+    color: #999;
+  }
+  
+  .edit_inputs textarea:focus::placeholder {
+    color: transparent; /* Hide placeholder text on focus */
+  }
+  * Add hover effect */
+.edit_inputs textarea:hover {
+  border-color: #b2b2b2;
+}
+
+/* Add box shadow on focus */
+.edit_inputs textarea:focus {
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+/* Add border color when disabled */
+.edit_inputs textarea:disabled {
+  border-color: #e9ecef;
+  background-color: #f8f9fa;
+}
+
+/* Style scrollbar */
+.edit_inputs textarea::-webkit-scrollbar {
+  width: 8px;
+}
+
+.edit_inputs textarea::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+
+.edit_inputs textarea::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+  
+  
+@media screen and (max-width: 768px) {
+    .edit_inputs {
+      flex: 1 1 calc(50% - 1rem);
+    }
+
 }

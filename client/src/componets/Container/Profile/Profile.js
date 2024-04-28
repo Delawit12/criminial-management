@@ -36,12 +36,14 @@ function Profile() {
   return (
     <div className="sectionContainer">
       <div className="section">
-        <Sidebar />
+        {/* <Sidebar /> */}
         <div className="container-xP-edit-a">
           <div className="profil_cont">
             <div className="container__profile p-5">
               <AdminPhoto />
-              <h3 className="adminName">{data.username}</h3>
+              <h3 className="adminName">
+                {profile ? profile.full_name : data.username}
+              </h3>
               <h4 className="adminRole">{data?.Role?.role_name}</h4>
 
               {/* <div className="basicInfo">

@@ -4,6 +4,6 @@ import auth from "../../middleware/auth.js";
 
 const complaintRoute = express.Router();
 
-complaintRoute.post("/complaint", auth, complaintController.addComplaint);
+complaintRoute.post("/addComplaint", auth, complaintController.addComplaint);
 
 export default complaintRoute;

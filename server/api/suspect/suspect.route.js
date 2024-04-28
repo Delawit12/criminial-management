@@ -4,11 +4,17 @@ import auth from "../../middleware/auth.js";
 
 const suspectRoute = express.Router();
 
-suspectRoute.put("/updateSuspect/:id", suspectController.updateSuspect);
-suspectRoute.delete(
-  "/deleteSuspect/:id",
+suspectRoute.post(
+  "/addSuspect/:complaintId?",
   auth,
-  suspectController.deleteSuspect
+  suspectController.addSuspect
+);
+suspectRoute.put("/updateSuspect/:id", auth, suspectController.updateSuspect);
+// assign as criminal
+suspectRoute.put(
+  "/updateSuspectStatus/:id",
+  auth,
+  suspectController.updateSuspectStatus
 );
 suspectRoute.get("/getSuspectById/:id", auth, suspectController.getSuspectById);
 suspectRoute.get("/getAllSuspects", auth, suspectController.getAllSuspects);

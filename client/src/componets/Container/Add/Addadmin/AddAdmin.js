@@ -145,7 +145,6 @@ function AddAdmin() {
   return (
     <div className="sectionContainer">
       <div className="section">
-        <Sidebar />
         <div className="contents-x">
           <div className="container-xP-edit-a">
             <div className="container__profile_addCr">

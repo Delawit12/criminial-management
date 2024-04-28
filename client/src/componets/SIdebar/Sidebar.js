@@ -7,11 +7,11 @@ import "./Sidebar.css";
 
 function Sidebar() {
   const [userRole, setUserRole] = useState();
-  let role;
+
   useEffect(() => {
     const userDataFound = JSON.parse(localStorage.getItem("userData"));
 
-    role = userDataFound.role_id;
+    const role = userDataFound.role_id;
     setUserRole(role);
   }, []);
   return (
@@ -44,10 +44,10 @@ function Sidebar() {
           </Link>
         </div>
         <div className="container__content">
-          <Link to="/viewAdmin">
+          <Link to="/viewSuspect">
             <a href="#" className="side__elements">
               <FaListAlt className="side__icons" />
-              View users
+              View Suspect
             </a>
           </Link>
         </div>
@@ -59,7 +59,6 @@ function Sidebar() {
             </a>
           </Link>
         </div>
-
         <div className="container__content">
           <Link to="/profile">
             <a href="#" className="side__elements">
@@ -68,9 +67,8 @@ function Sidebar() {
             </a>
           </Link>
         </div>
-
         <div className="container__content">
-          {userRole != 2 ? (
+          {userRole === 2 ? (
             <Link to="/addcriminal">
               <a href="#" className="side__elements">
                 <FaUserPlus className="side__icons" />
@@ -79,7 +77,32 @@ function Sidebar() {
             </Link>
           ) : null}
         </div>
-
+        <div className="container__content">
+          {userRole === 2 ? (
+            <Link to="/addcompliant" className="side__elements">
+              <FaUserPlus className="side__icons" />
+              Add Compliant
+            </Link>
+          ) : null}
+        </div>
+        <div className="container__content">
+          {userRole === 2 ? (
+            <Link to="/addsuspect" className="side__elements">
+              <FaUserPlus className="side__icons" />
+              Add Suspect
+            </Link>
+          ) : null}
+        </div>
+        <div className="container__content">
+          {userRole != 2 ? (
+            <Link to="/viewAdmin">
+              <a href="#" className="side__elements">
+                <FaListAlt className="side__icons" />
+                View users
+              </a>
+            </Link>
+          ) : null}
+        </div>
         <div className="container__content">
           {userRole != 2 ? (
             <Link to="/addUser">
