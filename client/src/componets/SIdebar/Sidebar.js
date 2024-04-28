@@ -17,22 +17,13 @@ function Sidebar() {
   return (
     <div className="sideBar__container bg-gray-800">
       <div className="sideBar__contents">
-        {/* <div className="container__content">
-            <Link to="/Profile" >
-            <a href="#" className='side__elements'>
-                <FaUserCircle className='side__icons' />
-                Profile
-            </a>
-            </Link>
-        </div> */}
-
         <div className="container__content">
-          <NavLink to="/ className='side__elements'">
-            <NavLink to="/profile">
+          <Link to="/profile">
+            <a href="#" className="side__elements">
               <FaUserCircle className="side__icons" />
               Profile
-            </NavLink>
-          </NavLink>
+            </a>
+          </Link>
         </div>
 
         <div className="container__content">
@@ -67,52 +58,52 @@ function Sidebar() {
             </a>
           </Link>
         </div>
-        <div className="container__content">
-          {userRole === 2 ? (
-            <Link to="/addcriminal">
-              <a href="#" className="side__elements">
-                <FaUserPlus className="side__icons" />
-                Add Criminal
-              </a>
-            </Link>
-          ) : null}
-        </div>
-        <div className="container__content">
-          {userRole === 2 ? (
-            <Link to="/addcompliant" className="side__elements">
-              <FaUserPlus className="side__icons" />
-              Add Compliant
-            </Link>
-          ) : null}
-        </div>
-        <div className="container__content">
-          {userRole === 2 ? (
-            <Link to="/addsuspect" className="side__elements">
-              <FaUserPlus className="side__icons" />
-              Add Suspect
-            </Link>
-          ) : null}
-        </div>
-        <div className="container__content">
-          {userRole != 2 ? (
+        {userRole != 2 ? (
+          <div className="container__content">
             <Link to="/viewAdmin">
               <a href="#" className="side__elements">
                 <FaListAlt className="side__icons" />
                 View users
               </a>
             </Link>
-          ) : null}
-        </div>
-        <div className="container__content">
-          {userRole != 2 ? (
+          </div>
+        ) : null}
+        {userRole != 2 ? (
+          <div className="container__content">
             <Link to="/addUser">
               <a href="#" className="side__elements">
                 <FaUserPlus className="side__icons" />
                 Add Users
               </a>
             </Link>
-          ) : null}
-        </div>
+          </div>
+        ) : null}
+        {userRole === 2 ? (
+          <div className="container__content">
+            <Link to="/addcriminal">
+              <a href="#" className="side__elements">
+                <FaUserPlus className="side__icons" />
+                Add Criminal
+              </a>
+            </Link>
+          </div>
+        ) : null}
+        {userRole === 2 ? (
+          <div className="container__content">
+            <Link to="/addcompliant" className="side__elements">
+              <FaUserPlus className="side__icons" />
+              Add Compliant
+            </Link>
+          </div>
+        ) : null}
+        {userRole === 2 ? (
+          <div className="container__content">
+            <Link to="/addsuspect" className="side__elements">
+              <FaUserPlus className="side__icons" />
+              Add Suspect
+            </Link>
+          </div>
+        ) : null}
       </div>
     </div>
   );

@@ -1,11 +1,10 @@
-import React from "react";
-import axios from "axios";
-import { useState } from "react";
-import { AiFillWarning } from "react-icons/ai";
-import { useNavigate } from "react-router";
+import React, { useState } from "react";
 import Sidebar from "../../../SIdebar/Sidebar";
+import axios from "axios";
+import { useNavigate } from "react-router";
 
 export default function AddSuspect() {
+  const Navigate = useNavigate();
   const religions = [
     "Select Religion",
     "Orthodox",
@@ -27,6 +26,7 @@ export default function AddSuspect() {
     "Released",
   ];
   const suspectedReasons = [
+    "Add the reason of suspection",
     "Robbery",
     "Assault",
     "Burglary",
@@ -43,76 +43,82 @@ export default function AddSuspect() {
     "Cybercrime",
     "Human Trafficking",
   ];
+  const [setError, setErrorMessage] = useState(null);
+  const [setSuccess, setSuccessMessage] = useState(null);
 
-  // let path;
-  // let id = null;
-  // let fName = props?.selectedCriminal?.name?.split(" ")[0];
-  // let lName = props?.selectedCriminal?.name?.split(" ")[1];
+  const [formData, setFormData] = useState({
+    name: "",
+    age: "",
+    gender: "",
+    height: "",
+    phoneNumber: "",
+    nationality: "",
+    address: "",
+    religion: "Select Religion",
+    status: "Add the suspect status",
+    arrestedDateTime: "",
+    reason: "Add the reason of suspection",
+    description: "",
+    releasedJustification: "",
+  });
 
-  // const [isEdit, setIsEdit] = useState(props.edit);
-  // const [editForm, setEditForm] = useState({});
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
-  // const [firstName, setfirstName] = useState(fName);
-  // const [lastName, setlastName] = useState(lName);
-  // const [age, setage] = useState(props?.selectedCriminal?.age);
-  // const [crimeType, setcrimeType] = useState(
-  //   props?.selectedCriminal?.crimeType
-  // );
-  // const [crimeDescription, setCrimeDescription] = useState(
-  //   props?.selectedCriminal?.crimeDescription
-  // );
-  // const [dateOfSentence, setdateOfSentence] = useState(
-  //   new Date(props?.selectedCriminal?.dateOfSentence)
-  // );
-  // const [yearOfSentence, setyearOfSentence] = useState(
-  //   props?.selectedCriminal?.yearOfSentence
-  // );
-  // const [error, setError] = useState(false);
-  // const [errorMsg, setErrorMsg] = useState("");
-  // const Navigate = useNavigate();
-
-  // if (isEdit) {
-  //   id = props?.selectedCriminal?.id;
-  //   path = `http://localhost:8080/admin/updateCriminal/${id}`;
-  // }
-  // if (!isEdit) {
-  //   path = "http://localhost:8080/admin/addCriminal";
-  // }
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const response = await axios.post(path, {
-  //       name: `${firstName} ${lastName}`,
-  //       age,
-  //       crimeType,
-  //       crimeDescription,
-  //       dateOfSentence,
-  //       yearOfSentence,
-
-  //       user: { role: "superAdmin" },
-  //     });
-  //     const data = response?.data;
-
-  //     if (data.status == "fail") {
-  //       setError(true);
-  //       setTimeout(() => {
-  //         setError(false);
-  //       }, 5000);
-  //       setErrorMsg(data.message);
-  //     }
-  //     if (data.status == "success") {
-  //       setError(true);
-  //       setTimeout(() => {
-  //         setError(false);
-  //       }, 5000);
-  //       setErrorMsg(data.message);
-  //       Navigate("/viewall");
-  //     }
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      let url = "http://localhost:8888/api/suspect/addSuspect";
+      let complaintId = localStorage.getItem("compliantId");
+      console.log("complaintId", complaintId);
+      if (typeof complaintId == "string") {
+        complaintId = parseInt(complaintId);
+      }
+      if (complaintId) {
+        url += `/${complaintId}`;
+      }
+      const response = await axios.post(url, formData, {
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": localStorage.getItem("token"),
+        },
+      });
+      console.log("response", response);
+      if (response.data.message === "Suspect inserted successfully") {
+        alert("Suspect inserted successfully!");
+        setFormData({
+          name: "",
+          age: "",
+          gender: "",
+          height: "",
+          phoneNumber: "",
+          nationality: "",
+          address: "",
+          religion: "Select Religion",
+          status: "Add the suspect status",
+          description: "",
+          reason: "Add the reason of suspection",
+          arrestedDateTime: "",
+          releasedJustification: "",
+        });
+        Navigate("/viewsuspect");
+        setSuccessMessage(response.data.message);
+        alert(setSuccess);
+      } else {
+        alert("Failed to add suspect. Please try again later.");
+      }
+    } catch (error) {
+      console.error("Error adding suspect:", error);
+      console.log("Error adding suspect:", error);
+      setErrorMessage(error.response.data.message);
+      alert(error.response.data.message);
+    }
+  };
 
   return (
     <div className="sectionContainer">
@@ -120,24 +126,47 @@ export default function AddSuspect() {
         <Sidebar />
         <div className="container-xP-edit-a">
           <div className="container__profile_addCr">
-            <form className="edit_inputForms">
+            <form className="edit_inputForms" onSubmit={handleSubmit}>
               <h1 className="section__page_title">Add Suspect</h1>
-
+              {setError && (
+                <div className="error-message  text-center text-xl text-red-500 ">
+                  {setError}
+                </div>
+              )}
+              {setSuccess && (
+                <div className="success-message  text-center text-xl text-lime-500 ">
+                  {setSuccess}
+                </div>
+              )}
               <div className="form-row">
                 <div className="edit_inputs">
-                  <label htmlFor="suspectName">Suspect Name</label>
-                  <input type="text" name="name" />
+                  <label htmlFor="name">Suspect Name</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                  />
                 </div>
 
                 <div className="edit_inputs">
-                  <label htmlFor="suspectAge">Suspect Age</label>
-                  <input type="number" name="age" />
+                  <label htmlFor="age">Suspect Age</label>
+                  <input
+                    type="number"
+                    name="age"
+                    value={formData.age}
+                    onChange={handleChange}
+                  />
                 </div>
 
                 <div className="edit_inputs">
-                  <label htmlFor="suspectGender">Suspect Gender</label>
-                  <select name="gender">
-                    <option value="male">Select Gender</option>
+                  <label htmlFor="gender">Suspect Gender</label>
+                  <select
+                    name="gender"
+                    value={formData.gender}
+                    onChange={handleChange}
+                  >
+                    <option value="">Select Gender</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
                     <option value="other">Other</option>
@@ -145,34 +174,54 @@ export default function AddSuspect() {
                 </div>
 
                 <div className="edit_inputs">
-                  <label htmlFor="suspectHeight">Suspect Height</label>
-                  <input type="text" name="height" />
+                  <label htmlFor="height">Suspect Height</label>
+                  <input
+                    type="text"
+                    name="height"
+                    value={formData.height}
+                    onChange={handleChange}
+                  />
                 </div>
 
                 <div className="edit_inputs">
-                  <label htmlFor="suspectPhoneNumber">
-                    Suspect Phone Number
-                  </label>
-                  <input type="number" name="phoneNumber" />
+                  <label htmlFor="phoneNumber">Suspect Phone Number</label>
+                  <input
+                    type="number"
+                    name="phoneNumber"
+                    value={formData.phoneNumber}
+                    onChange={handleChange}
+                  />
                 </div>
 
                 <div className="edit_inputs">
-                  <label htmlFor="suspectNationality">
-                    Suspect Nationality
-                  </label>
-                  <input type="text" name="nationality" />
+                  <label htmlFor="nationality">Suspect Nationality</label>
+                  <input
+                    type="text"
+                    name="nationality"
+                    value={formData.nationality}
+                    onChange={handleChange}
+                  />
                 </div>
               </div>
 
               <div className="form-row">
                 <div className="edit_inputs">
-                  <label htmlFor="suspectAddress">Suspect Address</label>
-                  <input type="text" name="address" />
+                  <label htmlFor="address">Suspect Address</label>
+                  <input
+                    type="text"
+                    name="address"
+                    value={formData.address}
+                    onChange={handleChange}
+                  />
                 </div>
 
                 <div className="edit_inputs">
-                  <label htmlFor="suspectReligion">Suspect Religion</label>
-                  <select name="religion">
+                  <label htmlFor="religion">Suspect Religion</label>
+                  <select
+                    name="religion"
+                    value={formData.religion}
+                    onChange={handleChange}
+                  >
                     {religions.map((religion, index) => (
                       <option key={index} value={religion}>
                         {religion}
@@ -181,8 +230,12 @@ export default function AddSuspect() {
                   </select>
                 </div>
                 <div className="edit_inputs">
-                  <label htmlFor="suspectStatus">Suspect Status</label>
-                  <select name="status">
+                  <label htmlFor="status">Suspect Status</label>
+                  <select
+                    name="status"
+                    value={formData.status}
+                    onChange={handleChange}
+                  >
                     {statuses.map((status, index) => (
                       <option key={index} value={status}>
                         {status}
@@ -193,13 +246,22 @@ export default function AddSuspect() {
                 <div className="form-row">
                   <div className="edit_inputs">
                     <label htmlFor="arrestedDateTime">Arrested Date Time</label>
-                    <input type="datetime-local" name="arrestedDateTime" />
+                    <input
+                      type="datetime-local"
+                      name="arrestedDateTime"
+                      value={formData.arrestedDateTime}
+                      onChange={handleChange}
+                    />
                   </div>
                 </div>
 
                 <div className="edit_inputs">
-                  <label htmlFor="suspectedReason">Suspected Reason</label>
-                  <select name="reason">
+                  <label htmlFor="reason">Suspected Reason</label>
+                  <select
+                    name="reason"
+                    value={formData.reason}
+                    onChange={handleChange}
+                  >
                     {suspectedReasons.map((reason, index) => (
                       <option key={index} value={reason}>
                         {reason}
@@ -209,11 +271,11 @@ export default function AddSuspect() {
                 </div>
                 <div className="form-row">
                   <div className="edit_inputs">
-                    <label htmlFor="suspectDescription">
-                      Suspect Description
-                    </label>
+                    <label htmlFor="description">Suspect Description</label>
                     <textarea
                       name="description"
+                      value={formData.description}
+                      onChange={handleChange}
                       placeholder="Enter the description of the suspect"
                     ></textarea>
                   </div>
@@ -223,6 +285,8 @@ export default function AddSuspect() {
                     </label>
                     <textarea
                       name="releasedJustification"
+                      value={formData.releasedJustification}
+                      onChange={handleChange}
                       placeholder="Enter the justification for the release of the suspect"
                     ></textarea>
                   </div>
@@ -230,7 +294,9 @@ export default function AddSuspect() {
               </div>
 
               <div className="form-row">
-                <button className="sign-btn add__criminal">Add Suspect</button>
+                <button type="submit" className="sign-btn add__criminal">
+                  Add Suspect
+                </button>
               </div>
             </form>
           </div>

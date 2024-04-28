@@ -94,7 +94,7 @@ export default function ViewAdmin() {
     return (
       <div className="sectionContainer">
         <div className="section">
-          {/* <Sidebar /> */}
+          <Sidebar />
           <div className="contents-x py-5 w-[70%]">
             <div className="py-5 ">
               <div
@@ -132,7 +132,7 @@ export default function ViewAdmin() {
     return (
       <div className="sectionContainer">
         <div className="section w-72">
-          {/* <Sidebar /> */}
+          <Sidebar />
           <div className="contents-x">
             <div className="con w-full">
               <div className="con p-8">

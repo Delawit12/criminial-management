@@ -26,6 +26,7 @@ import ViewSuspect from "./Container/Viewall/ViewSuspect";
 import ViewSinglecriminal from "./Container/Viewall/ViewSinglecriminal";
 import ViewSinglesuspect from "./Container/Viewall/ViewSinglecriminal";
 import Sidebar from "./SIdebar/Sidebar";
+import Home from "./Container/Home/homecard/Home";
 
 export default function TheApp() {
   const [auth, setAuth] = useState(false);
@@ -38,10 +39,11 @@ export default function TheApp() {
 
   return (
     <Router>
-      <Navbar />
       {/* <Sidebar /> */}
+      <Navbar />
       <Routes>
         {" "}
+        <Route path="/" element={<Home />} />
         <Route path="/login" exact element={<Login />} />
         <Route
           path="/viewall"
@@ -66,7 +68,6 @@ export default function TheApp() {
         />
         <Route path="/viewAdmin" exact element={<ViewAdmin />} />
         <Route path="/getusers" exact element={<AddAdmin />} />
-        <Route path="/" element={<Login />} />
         <Route path="/profile" exact element={<Profile />} />
         <Route path="/editprofile" exacts element={<EditProfile />} />
         <Route

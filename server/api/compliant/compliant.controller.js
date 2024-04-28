@@ -9,7 +9,6 @@ const complaintController = {
       const {
         description,
         dateReceived,
-        status,
         firstName,
         fatherName,
         motherName,
@@ -22,12 +21,14 @@ const complaintController = {
         phoneNumber,
         relationshipWithSuspect,
       } = req.body;
-
+      let date_Received = dateReceived + "T00:00:00Z";
+      let date_Of_Birth = dateOfBirth + "T00:00:00Z";
+      console.log(date_Received);
+      console.log("req.body", req.body);
       // Check if any required field is missing
       if (
         !description ||
         !dateReceived ||
-        !status ||
         !firstName ||
         !dateOfBirth ||
         !nationality ||
@@ -37,12 +38,10 @@ const complaintController = {
         !phoneNumber ||
         !relationshipWithSuspect
       ) {
-        return res
-          .status(400)
-          .json({
-            error: "All fields are required.",
-            message: "All fields are required.",
-          });
+        return res.status(400).json({
+          error: "All fields are required.",
+          message: "All fields are required.",
+        });
       }
 
       // Get the user ID from the token and find the user in the database
@@ -60,12 +59,12 @@ const complaintController = {
       const newComplaint = await prisma.compliant.create({
         data: {
           compliant_description: description,
-          date_received: dateReceived,
-          status: status,
+          date_received: date_Received,
+          status: "compliant",
           compliant_first_name: firstName,
           compliant_father_name: fatherName,
           compliant_mother_name: motherName,
-          compliant_date_of_birth: dateOfBirth,
+          compliant_date_of_birth: date_Of_Birth,
           compliant_nationality: nationality,
           compliant_religion: religion,
           compliant_occupation: occupation,
@@ -83,12 +82,10 @@ const complaintController = {
       });
     } catch (error) {
       console.error("Error adding complaint:", error);
-      res
-        .status(500)
-        .json({
-          error: "An error occurred while adding complaint.",
-          message: "Internal server error",
-        });
+      res.status(500).json({
+        error: "An error occurred while adding complaint.",
+        message: "Internal server error",
+      });
     }
   },
 };

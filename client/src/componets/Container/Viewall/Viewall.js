@@ -91,7 +91,7 @@ export default function Viewall(props) {
     return (
       <div className="sectionContainer">
         <div className="section">
-          {/* <Sidebar /> */}
+          <Sidebar />
           <div className="contents-x">
             <div className="con w-full">
               <div className="con">
@@ -124,20 +124,18 @@ export default function Viewall(props) {
                             Status
                           </th>
                           <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">
-                            {" "}
                             Year Of Sentence
                           </th>
                           <th className="px-6 py-3 border-b-2 border-gray-300"></th>
                         </tr>
                       </thead>
-
                       <tbody className="scroll bg-white overflow-y-scroll w-full h-[50vh] ">
                         <div className="p-2 w-[100%]">
                           <div
-                            class="p-4 w-[100%] mb-4  text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-700 dark:text-red-400"
+                            className="p-4 w-[100%] mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-700 dark:text-red-400"
                             role="alert"
                           >
-                            <span class="font-medium">Danger alert!</span>{" "}
+                            <span className="font-medium">Danger alert!</span>{" "}
                             Error: {Error.message}
                           </div>
                         </div>
@@ -155,12 +153,12 @@ export default function Viewall(props) {
     return (
       <div className="sectionContainer">
         <div className="section">
-          {/* <Sidebar /> */}
+          <Sidebar />
           <div className="contents-x">
             <div className="con w-full">
-              <div className="con">
-                <div className="scr -my-2 py-2  sm:-mx-6 sm:px-6 lg:-mx-8 pr-10 lg:px-8">
-                  <div className="align-middle rounded-tl-lg rounded-tr-lg inline-block w-full py-4 overflow-hidden bg-white shadow-lg px-12">
+              <div className="con border-l-8 border-r-8 border-l-transparent border-r-transparent">
+                <div className="scr -my-2 py-2  sm:-mx-6 sm:px-6 lg:-mx-8 pr-10 lg:px-8 border-l-8 border-r-transparent border-l-transparent">
+                  <div className="align-middle rounded-tl-lg rounded-tr-lg inline-block w-1/2 py-4 overflow-hidden bg-white shadow-lg px-12   mx-32 mt-12 ">
                     <div className="flex justify-between">
                       <h1 className="text-[2rem]">All Criminals</h1>
                     </div>
@@ -188,23 +186,20 @@ export default function Viewall(props) {
                             Status
                           </th>
                           <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">
-                            {" "}
                             Year Of Sentence
                           </th>
                           <th className="px-6 py-3 border-b-2 border-gray-300"></th>
                         </tr>
                       </thead>
-
                       <tbody className="scroll bg-white overflow-y-scroll h-[50vh]">
                         <div>
                           <div
-                            class="p-4 mb-4 text-sm text-yellow-800 rounded-lg bg-yellow-50 dark:bg-gray-700 dark:text-yellow-300"
+                            className="p-4 mb-4 text-sm text-yellow-800 rounded-lg bg-yellow-50 dark:bg-gray-700 dark:text-yellow-300"
                             role="alert"
                           >
-                            <span class="font-medium">!</span> Loading...
+                            <span className="font-medium">!</span> Loading...
                           </div>
                         </div>
-                        ;
                       </tbody>
                     </table>
                   </div>
@@ -218,14 +213,13 @@ export default function Viewall(props) {
   } else {
     return (
       <div className="sectionContainer">
-        {" "}
         <div className="section">
-          {/* <Sidebar /> */}
-          <div className="contents-x">
+          <Sidebar />
+          <div className="contents-x  ">
             <div className="con w-full">
-              <div className="con">
-                <div className="scr -my-2 py-2  sm:-mx-6 sm:px-6 lg:-mx-8 pr-10 lg:px-8">
-                  <div className="align-middle rounded-tl-lg rounded-tr-lg inline-block w-full py-4 overflow-hidden bg-white shadow-lg px-12">
+              <div className="con border-l-8 border-r-8 border-l-transparent border-r-transparent">
+                <div className="scr -my-2 py-2  sm:-mx-6 sm:px-6 lg:-mx-8 pr-10 lg:px-8 border-l-8 border-r-transparent border-l-transparent">
+                  <div className="align-middle rounded-tl-lg rounded-tr-lg inline-block w-1/2 py-4 overflow-hidden bg-white shadow-lg px-12   mx-32 mt-12 ">
                     <div className="flex justify-between">
                       <h1 className="text-[2rem]">All Criminals</h1>
                     </div>
@@ -253,13 +247,11 @@ export default function Viewall(props) {
                             Status
                           </th>
                           <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">
-                            {" "}
                             Year Of Sentence
                           </th>
                           <th className="px-6 py-3 border-b-2 border-gray-300"></th>
                         </tr>
                       </thead>
-
                       <tbody className="scroll bg-white overflow-y-scroll h-[50vh]">
                         {items.map((data, index) => (
                           <CriminalTableRow

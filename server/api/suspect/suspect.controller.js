@@ -14,10 +14,18 @@ const suspectController = {
         nationality,
         address,
         religion,
-        description,
         status,
+        description,
         reason,
+        arrestedDateTime,
+        releasedJustification,
       } = req.body;
+      console.log("req.body", req.body);
+      console.log("age", typeof age);
+      let suspectAge = age;
+      if (typeof suspectAge == "string") {
+        suspectAge = null;
+      }
 
       const compliantId = parseInt(req.params.complaintId); // Get complaint ID from request params
       console.log("compliantId", compliantId);
@@ -26,7 +34,8 @@ const suspectController = {
       if (!description || !status || !reason) {
         return res.status(400).json({
           error: "All fields are required.",
-          message: "All fields are required.",
+          message:
+            "please fill suspect description ,suspect status ,suspected reason fields, they are required.",
         });
       }
 
@@ -63,7 +72,7 @@ const suspectController = {
       const newSuspect = await prisma.suspect.create({
         data: {
           suspect_name: name,
-          suspect_age: age,
+          suspect_age: suspectAge,
           suspect_gender: gender,
           suspect_height: height,
           suspect_phone_number: phoneNumber,
